@@ -2,17 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_home"
+        android:id="@+id/nav_home"
         android:icon="@mipmap/shouye"
         android:title="@string/title_home" />
 
     <item
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/nav_file_upload"
         android:icon="@mipmap/icon_add"
         android:title="@string/title_file_upload" />
 
     <item
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/nav_wode"
         android:icon="@mipmap/wode"
         android:title="@string/title_me" />
 
