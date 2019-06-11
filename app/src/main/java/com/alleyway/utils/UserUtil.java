@@ -13,13 +13,13 @@ public class UserUtil {
     /**
      * 验证登录用户输入合法性
      */
-    public static boolean validateLogin(Context context, String phoneNember, String password){
+    public static boolean validateLogin(Context context, String username, String password){
 
         // 验证用户输入是否合法
 
 
-        if(!RegexUtils.isMobileExact(phoneNember)){
-            Toast.makeText(context, "无效手机号", Toast.LENGTH_SHORT).show();
+        if(!RegexUtils.isUsername(username)){
+            Toast.makeText(context, "用户名长度必须是 6-20 位", Toast.LENGTH_SHORT).show();
             return false;
         }
 

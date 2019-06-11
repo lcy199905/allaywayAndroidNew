@@ -1,10 +1,12 @@
 package com.alleyway.activitys;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
 import com.alleyway.BaseActivity;
 import com.alleyway.R;
+import com.alleyway.utils.UserUtil;
 import com.alleyway.views.InputView;
 
 import butterknife.BindView;
@@ -35,6 +37,18 @@ public class LoginActivity extends BaseActivity {
 
     @OnClick(R.id.btn_login)
     public void onViewClicked() {
+        String username = inputUsername.getInputStr();
+        String password = inputPassword.getInputStr();
+        // 先验证格式是否正确
+        if(!UserUtil.validateLogin(this, username, password)){
+            return;
+        }
+        //  发送请求出去，判断数据库是否有这个用户和密码是否正确
+
+        // 返回正确
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
+
 
     }
 }

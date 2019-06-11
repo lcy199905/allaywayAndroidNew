@@ -77,7 +77,7 @@ public class InputView extends FrameLayout {
         // 布局关联属性
         mIvIcon.setImageResource(inputIcon);
         mEtInput.setHint(inputHint);
-        mEtInput.setInputType(isPassword ? InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD : InputType.TYPE_CLASS_PHONE);
+        mEtInput.setInputType(isPassword ? InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD : InputType.TYPE_CLASS_TEXT);
 
         addView(mView);
 
