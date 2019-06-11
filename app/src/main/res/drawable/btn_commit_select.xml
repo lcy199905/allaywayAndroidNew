@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--这个view属于高亮时候的状态-->
+    <item android:state_focused="true" android:drawable="@drawable/commit_btn_h"/>
+    <!--当前的view属于按下的状态-->
+    <item android:state_pressed="true" android:drawable="@drawable/commit_btn_h"/>
+    <!--当view选中的状态-->
+    <item android:state_selected="true" android:drawable="@drawable/commit_btn_h"/>
+
+    <!--View 默认的时候-->
+    <item android:drawable="@drawable/commit_btn_n"/>
+
+</selector>

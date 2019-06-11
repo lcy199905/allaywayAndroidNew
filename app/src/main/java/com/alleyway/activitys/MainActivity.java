@@ -1,23 +1,27 @@
-package com.alleyway;
+package com.alleyway.activitys;
 
 import android.os.Bundle;
+
+import com.alleyway.BaseActivity;
+import com.alleyway.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
+import androidx.core.app.ComponentActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.view.MenuItem;
-import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     /* 获取到子页面的3个Activity */
     private Fragment mHomeFragment;
     private Fragment mFileloadFragment;
     private Fragment mMeFragment;
-
+    /* 默认显示的页面 */
     private int fragmentId = R.id.nav_home;
 
     /* 底部导航栏的单击事件 */
@@ -39,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
+        initNavBar(false, "首页");
         //根据传入的Bundle对象判断Activity是正常启动还是销毁重建
         if(savedInstanceState == null){
             //设置第一个Fragment默认选中

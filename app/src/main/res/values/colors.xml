@@ -4,4 +4,7 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="divider">#999999</color>
+    <color name="mainColor">#00574B</color>
+    <color name="linColor">#C3C3C3</color>
+    <color name="mainColorH">#00774B</color>
 </resources>
