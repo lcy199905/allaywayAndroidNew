@@ -17,13 +17,13 @@
         android:layout_marginTop="@dimen/marginSize"/>
 
     <com.alleyway.views.InputView
-        android:id="@+id/input_phone"
+        android:id="@+id/input_username"
         android:layout_width="match_parent"
         android:layout_height="@dimen/inputViewHeight"
         android:layout_marginTop="@dimen/marginSize"
         app:input_icon="@mipmap/yonghu"
         app:input_hint="请输入用户名:"
-        app:is_password="false"></com.alleyway.views.InputView>
+        app:is_password="false"/>
 
     <View
         style="@style/line"/>
@@ -35,12 +35,13 @@
         android:layout_marginTop="@dimen/marginSize"
         app:input_icon="@mipmap/mimasuo"
         app:input_hint="请输入密码:"
-        app:is_password="true"></com.alleyway.views.InputView>
+        app:is_password="true"/>
 
     <View
         style="@style/line"/>
 
     <TextView
+        android:id="@+id/txt_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="@dimen/marginSize"
@@ -51,10 +52,10 @@
     <!--android:onClick="onRegisterClick"/>-->
 
     <Button
+        android:id="@+id/btn_login"
         style="@style/commitBtn"
         android:text="登 录"
-        android:layout_marginTop="@dimen/marginSize"
-        android:onClick="onCommitClick"/>
+        android:layout_marginTop="@dimen/marginSize" />
 
 
 

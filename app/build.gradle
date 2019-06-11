@@ -34,4 +34,8 @@ dependencies {
     //黄油刀
     implementation 'com.jakewharton:butterknife:10.1.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
+    // utilCode
+    implementation 'com.blankj:utilcode:1.11.1'
+    // circleimageview
+    implementation 'de.hdodenhof:circleimageview:3.0.0'
 }
