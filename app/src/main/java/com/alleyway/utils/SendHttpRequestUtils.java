@@ -15,6 +15,13 @@ public class SendHttpRequestUtils {
 
     private static final String URL = "http://www.cyhfwq.top/designForum/";
 
+    /**
+     * 发送Http请求
+     * @param url 请求的url地址
+     * @param isGet true：get请求 false：post请求
+     * @return
+     * @throws Exception
+     */
     public static String sendHttpRequest(String url, boolean isGet) throws Exception {
         // 创建Gson实例
         Gson gson = new Gson();
