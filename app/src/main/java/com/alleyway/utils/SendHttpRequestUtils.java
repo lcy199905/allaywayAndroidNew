@@ -3,6 +3,7 @@ package com.alleyway.utils;
 
 import com.google.gson.Gson;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -88,7 +89,13 @@ class SendHttpRequestCallable implements Callable<String> {
     @Override
     public String call() throws Exception {
         OkHttpClient client = new OkHttpClient();
-        Response response = client.newCall(request).execute();
+        Response response = null;
+        try {
+            response = client.newCall(request).execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
         String data = response.body().string();
         return data;
     }
