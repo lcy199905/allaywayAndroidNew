@@ -14,7 +14,7 @@ import okhttp3.*;
 
 public class SendHttpRequestUtils {
 
-    private static final String URL = "http://www.cyhfwq.top/designForum/";
+    private static final String URL = "http://www.cyhfwq.top/designForum2/";
 
     /**
      * 发送Http请求
