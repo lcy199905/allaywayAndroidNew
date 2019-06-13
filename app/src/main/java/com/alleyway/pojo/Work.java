@@ -41,6 +41,12 @@ public class Work {
     private String userHead;
     private List<String> workImageList;
 
+
+
+
+
+
+
     public Work(){
 
     }

@@ -50,7 +50,7 @@ public class JsonUtils {
      * @param classz 数据类型的class
      * @return
      */
-    public static Paging jsonToMap(String json, Class classz){
+    public static Paging jsonPaging(String json, Class classz){
 
         Integer code = getCode(json);
 
@@ -77,7 +77,7 @@ public class JsonUtils {
         List list = new ArrayList(jsonArray.length());
         for (int i = 0; i < jsonArray.length(); i++) {
             try {
-                JSONObject jsonObject = jsonArray.getJSONObject(1);
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
                 Object object = gson.fromJson(jsonObject.toString(), classz);
                 list.add(object);
             } catch (Exception e) {

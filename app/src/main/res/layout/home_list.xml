@@ -16,10 +16,12 @@
         android:paddingTop="5dp">
         <!--头像-->
         <ImageView
+            android:id="@+id/home_user_head"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:src="@drawable/head"/>
         <TextView
+            android:id="@+id/home_user_name"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
             android:gravity="center"
@@ -44,6 +46,7 @@
             android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/home_work_text"
                     android:layout_width="match_parent"
                     android:layout_height="75dp"
                     android:textColor="#000"
@@ -60,8 +63,9 @@
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/评论"/>
+                    android:src="@drawable/pinglun"/>
                 <TextView
+                    android:id="@+id/home_work_discuss_size"
                     android:layout_width="wrap_content"
                     android:gravity="center"
                     android:text="3"
@@ -79,6 +83,7 @@
                     android:layout_height="30dp"
                     android:src="@drawable/like"/>
                 <TextView
+                    android:id="@+id/home_work_like_size"
                     android:layout_width="35dp"
                     android:layout_height="30dp"
                     android:gravity="center"
@@ -91,6 +96,7 @@
                     android:layout_marginLeft="10dp"
                     android:src="@drawable/shouchang"/>
                 <TextView
+                    android:id="@+id/home_work_collect"
                     android:layout_width="35dp"
                     android:layout_height="30dp"
                     android:gravity="center"
@@ -101,6 +107,7 @@
         </LinearLayout>
         <!--右侧的图片-->
         <ImageView
+            android:id="@+id/home_work_image"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="100dp"
