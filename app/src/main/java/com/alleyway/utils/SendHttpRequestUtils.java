@@ -5,8 +5,10 @@ import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.FutureTask;
 
@@ -18,9 +20,30 @@ public class SendHttpRequestUtils {
 
     /**
      * 发送Http请求
+     * @param url 请求的url地址（不需要带参）
+     * @param paramMap 封装url参数的map
+     * @param isGet true：get请求 false：post请求
+     * @return 获取到的json数据
+     * @throws Exception
+     */
+    public static String sendHttpRequest(String url, Map<String,String> paramMap, boolean isGet) throws Exception {
+        StringBuilder sb = new StringBuilder(url).append("?");
+        Set<String> keySet = paramMap.keySet();
+        for (String key : keySet) {
+            String value = paramMap.get(key);
+            sb.append(key).append("=").append(value).append("&");
+        }
+        String s = sb.toString();
+        s = s.substring(0, s.length() - 1);
+        String jsonData = sendHttpRequest(s, isGet);
+        return jsonData;
+    }
+
+    /**
+     * 发送Http请求
      * @param url 请求的url地址
      * @param isGet true：get请求 false：post请求
-     * @return
+     * @return 获取到的json数据
      * @throws Exception
      */
     public static String sendHttpRequest(String url, boolean isGet) throws Exception {
@@ -38,7 +61,7 @@ public class SendHttpRequestUtils {
             // 构建post请求
             RequestBody requestBody = generateRequestBody(url);
 
-            if (requestBody == null) return null;
+            if (requestBody == null) return "";
 
             request = new Request.Builder().url(URL + url).post(requestBody).build();
         }
@@ -54,8 +77,8 @@ public class SendHttpRequestUtils {
 
     /**
      * 生成post请求所需的FormBody
-     * @param url
-     * @return
+     * @param url 需要解析的url
+     * @return url参数解析并封装好的RequestBody对象用于post请求
      */
     private static RequestBody generateRequestBody(String url){
         String[] split = url.split("\\?");
@@ -94,7 +117,7 @@ class SendHttpRequestCallable implements Callable<String> {
             response = client.newCall(request).execute();
         } catch (IOException e) {
             e.printStackTrace();
-            return null;
+            return "";
         }
         String data = response.body().string();
         return data;
