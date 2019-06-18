@@ -79,7 +79,7 @@ public class HomeActivity extends Fragment implements AdapterView.OnItemClickLis
 //        sp.edit().putString("work_id", String.valueOf(work_id));
 //        sp.edit().commit();
         Intent intent = new Intent(getActivity(),MeActivity.class);
-        intent.putExtra("id",work_id);
+        intent.putExtra("work_id",work_id);
         startActivity(intent);
     }
 
