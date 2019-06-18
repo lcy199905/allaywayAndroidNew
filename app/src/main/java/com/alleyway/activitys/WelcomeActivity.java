@@ -31,8 +31,8 @@ public class WelcomeActivity extends BaseActivity {
         mTimer.schedule(new TimerTask() {
             @Override
             public void run() {
-//                Log.e("WelcaomeActivity", "当前线程为："+ String.valueOf(Thread.currentThread()));
-                toMain();
+                //toMain();
+                toLogin();
             }
         }, 2 * 1000);
     }
