@@ -31,8 +31,8 @@ public class WelcomeActivity extends BaseActivity {
         mTimer.schedule(new TimerTask() {
             @Override
             public void run() {
-                //toMain();
-                toLogin();
+                toMain();
+                //toLogin();
             }
         }, 2 * 1000);
     }
