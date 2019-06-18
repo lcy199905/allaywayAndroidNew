@@ -14,5 +14,12 @@
         android:textSize="72sp"
         android:gravity="center"/>
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/head"
+        android:id="@+id/my_fragment_tx"
+        />
+
 
 </FrameLayout>
