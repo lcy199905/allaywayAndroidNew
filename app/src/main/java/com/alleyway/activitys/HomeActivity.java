@@ -78,7 +78,7 @@ public class HomeActivity extends Fragment implements AdapterView.OnItemClickLis
 //        SharedPreferences sp=getActivity().getSharedPreferences("work", Context.MODE_PRIVATE);
 //        sp.edit().putString("work_id", String.valueOf(work_id));
 //        sp.edit().commit();
-        Intent intent = new Intent(getActivity(),MeActivity.class);
+        Intent intent = new Intent(getActivity(),DetailsActivity.class);
         intent.putExtra("work_id",work_id);
         startActivity(intent);
     }

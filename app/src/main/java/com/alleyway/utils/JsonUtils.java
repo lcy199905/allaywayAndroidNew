@@ -33,8 +33,8 @@ public class JsonUtils {
         try {
             JSONObject jsonObject = new JSONObject(json);
             jsonObject = new JSONObject(jsonObject.getString("content"));
-            JSONArray jsonArray = jsonObject.getJSONArray("content");
-            s = jsonArray.getString(0);
+            jsonObject = jsonObject.getJSONObject("content");
+            s = jsonObject.toString();
         } catch (JSONException e) {
             e.printStackTrace();
         }
