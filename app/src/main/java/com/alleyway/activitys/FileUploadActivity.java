@@ -39,9 +39,7 @@ import static android.app.Activity.RESULT_OK;
 public class FileUploadActivity extends Fragment {
 
 
-    @BindView(R.id.editText1)
     EditText editText1;
-    @BindView(R.id.gridView1)
     GridView gridView1;
     private final int IMAGE_OPEN = 1;        //打开图片标记
     private String pathImage;                //选择图片路径
@@ -49,7 +47,6 @@ public class FileUploadActivity extends Fragment {
     private ArrayList<HashMap<String, Object>> imageItem;
     private SimpleAdapter simpleAdapter;
 
-    private View view;
 
     public FileUploadActivity() {
 
@@ -59,12 +56,15 @@ public class FileUploadActivity extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        ButterKnife.bind(getActivity());
-        /*
+
+/*
+        */
+/*
          * 防止键盘挡住输入框
          * 不希望遮挡设置activity属性 android:windowSoftInputMode="adjustPan"
          * 希望动态调整高度 android:windowSoftInputMode="adjustResize"
-         */
+         *//*
+
 //        view.getWindow().setSoftInputMode(WindowManager.LayoutParams.
 //                SOFT_INPUT_ADJUST_PAN);
 //            //锁定屏幕
@@ -81,14 +81,16 @@ public class FileUploadActivity extends Fragment {
                 imageItem, R.layout.griditem_addpic,
                 new String[] { "itemImage"}, new int[] { R.id.imageView1});
 
-        /*
+        */
+/*
          * HashMap载入bmp图片在GridView中不显示,但是如果载入资源ID能显示 如
          * map.put("itemImage", R.drawable.img);
          * 解决方法:
          *              1.自定义继承BaseAdapter实现
          *              2.ViewBinder()接口实现
          *  参考 http://blog.csdn.net/admin_/article/details/7257901
-         */
+         *//*
+
         simpleAdapter.setViewBinder(new SimpleAdapter.ViewBinder() {
             @Override
             public boolean setViewValue(View view, Object data,
@@ -104,10 +106,12 @@ public class FileUploadActivity extends Fragment {
         });
         gridView1.setAdapter(simpleAdapter);
 
-        /*
+        */
+/*
          * 监听GridView点击事件
          * 报错:该函数必须抽象方法 故需要手动导入import android.view.View;
-         */
+         *//*
+
         gridView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id)
@@ -132,13 +136,23 @@ public class FileUploadActivity extends Fragment {
         });
 
 
+*/
 
         return inflater.inflate(R.layout.activity_file_upload, container, false);
 
 
     }
 
-    //刷新图片
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        gridView1 = getView().findViewById(R.id.gridView1);
+        editText1 = getView().findViewById(R.id.editText1);
+
+
+    }
+
+    /*//刷新图片
     @Override
     public void onResume() {
         super.onResume();
@@ -170,15 +184,7 @@ public class FileUploadActivity extends Fragment {
         }
     }
 
-    @OnClick({R.id.button1, R.id.button2})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.button1:
-                break;
-            case R.id.button2:
-                break;
-        }
-    }
+
 
 
     //获取图片路径 响应startActivityForResult
@@ -207,10 +213,10 @@ public class FileUploadActivity extends Fragment {
         }  //end if 打开图片
     }
 
-    /*
+    *//*
      * Dialog对话框提示用户删除操作
      * position为删除图片位置
-     */
+     *//*
     protected void dialog(final int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage("确认移除已添加图片吗？");
@@ -230,6 +236,6 @@ public class FileUploadActivity extends Fragment {
             }
         });
         builder.create().show();
-    }
+    }*/
 }
 
