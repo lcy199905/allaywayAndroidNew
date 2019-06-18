@@ -43,7 +43,7 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        initNavBar(false, "首页");
+//        initNavBar(false, "首页");
         //根据传入的Bundle对象判断Activity是正常启动还是销毁重建
         if(savedInstanceState == null){
             //设置第一个Fragment默认选中

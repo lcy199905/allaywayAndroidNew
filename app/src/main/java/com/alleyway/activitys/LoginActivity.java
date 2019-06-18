@@ -3,6 +3,7 @@ package com.alleyway.activitys;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -23,6 +24,7 @@ import butterknife.OnClick;
 
 public class LoginActivity extends BaseActivity {
 
+    private static final String TAG = "LoginActivity";
     @BindView(R.id.input_username)
     InputView inputUsername;
     @BindView(R.id.input_password)
@@ -68,6 +70,7 @@ public class LoginActivity extends BaseActivity {
         //3、封装Json数据到POJO
         Gson gson = new Gson();
         UserBO userBO = gson.fromJson(resultJSON, UserBO.class);
+        Log.e(TAG, "onViewClicked: " + userBO.toString() );
         //4、判断Json数据的状态码，判断有没有登录成功，成功转跳,用户信息存入到全局数据
         if(userBO.getCode() == 0){
             // User数据存入到全局保存

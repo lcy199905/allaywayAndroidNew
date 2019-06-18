@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.alleyway.BaseActivity;
 import com.alleyway.R;
 
 public class FileUploadActivity extends Fragment {
