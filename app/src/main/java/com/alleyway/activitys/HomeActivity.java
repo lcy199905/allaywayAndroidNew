@@ -2,7 +2,6 @@ package com.alleyway.activitys;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
@@ -21,11 +20,11 @@ import com.alleyway.pojo.Paging;
 import com.alleyway.pojo.Work;
 import com.alleyway.utils.JsonUtils;
 import com.alleyway.utils.SendHttpRequestUtils;
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
-import static com.alleyway.utils.JsonUtils.jsonToClass;
 
 public class HomeActivity extends Fragment implements AdapterView.OnItemClickListener {
 
@@ -80,6 +79,8 @@ public class HomeActivity extends Fragment implements AdapterView.OnItemClickLis
 
     //ListView的赋值
     class MyAdapter extends BaseAdapter {
+        String headUrl = "http://www.cyhfwq.top/designForum2/images/head/";
+        String workUrl = "http://www.cyhfwq.top/designForum2/images/work/";
 
         // 返回集合数据的数量
         public int getCount() {
@@ -111,18 +112,19 @@ public class HomeActivity extends Fragment implements AdapterView.OnItemClickLis
             Work work= (Work) paging.getList().get(i);
             // 得到子View对象
             ImageView homeUserHeadd=view.findViewById(R.id.home_user_head); // 头像
+            ImageView homeWorkImage=view.findViewById(R.id.home_work_image); // 头像
             TextView homeUserName=view.findViewById(R.id.home_user_name); // 昵称
             TextView homeWorkText=view.findViewById(R.id.home_work_text);   // 作品内容
             TextView homeWorkDiscussSize=view.findViewById(R.id.home_work_discuss_size);   // 评论数量
             TextView homeWorkLikeSize=view.findViewById(R.id.home_work_like_size); // 点赞数量
             TextView homeWorkCollect=view.findViewById(R.id.home_work_collect); // 收藏数量
             // 设置数据
-/*            id.setText(String.valueOf(category.getId()));
-            template.setImageResource(category.getTemplate());
-            name.setText(category.getName());
-            price.setText(String .valueOf(category.getPrice()));
-            describe.setText(category.getDescribe());
-            inventory.setText(String.valueOf(category.getInventory()));*/
+            Glide.with(getActivity()).load(headUrl +work.getUserHead()).into(homeUserHeadd);
+            StringBuffer image = new StringBuffer(work.getWorkImageList().get(0));
+            image.insert(image.indexOf("."),"_compress");
+            image.insert(0,work.getPath()+"/" );
+
+            Glide.with(getActivity()).load(workUrl+image.toString()).into(homeWorkImage);
             homeUserName.setText(work.getUserName());
             homeWorkText.setText(work.getWorkText());
             homeWorkDiscussSize.setText(String.valueOf(work.getWorkDiscussSize()));
@@ -130,6 +132,8 @@ public class HomeActivity extends Fragment implements AdapterView.OnItemClickLis
             homeWorkCollect.setText(String.valueOf(work.getWorkCollect()));
             return view;
         }
+
+
     }
 
 

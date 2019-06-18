@@ -6,7 +6,8 @@
     xmlns:gcs="http://schemas.android.com/apk/res-auto"
     android:padding="7dp"
     android:layout_height="160dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#fff">
 
     <!--用户信息-->
     <LinearLayout
@@ -78,7 +79,7 @@
 
 
                 <ImageView
-                    android:layout_marginLeft="70dp"
+                    android:layout_marginLeft="100dp"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:src="@drawable/like"/>
