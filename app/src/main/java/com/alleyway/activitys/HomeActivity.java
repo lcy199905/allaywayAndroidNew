@@ -4,6 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -52,10 +55,6 @@ public class HomeActivity extends Fragment implements AdapterView.OnItemClickLis
         try {
             String s = SendHttpRequestUtils.sendHttpRequest("work/getWorkList?work_type=1", true);
             paging = JsonUtils.jsonPaging(s,Work.class);
-            Log.w(TAG, s );
-            for (int i =0;i<paging.getList().size();i++) {
-                Log.w(TAG, paging.getList().get(i).toString() );
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -73,7 +72,15 @@ public class HomeActivity extends Fragment implements AdapterView.OnItemClickLis
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+        // 获取当前点击的作品的id值
+        int work_id=((Work)paging.getList().get(position)).getId();
+//
+//        SharedPreferences sp=getActivity().getSharedPreferences("work", Context.MODE_PRIVATE);
+//        sp.edit().putString("work_id", String.valueOf(work_id));
+//        sp.edit().commit();
+        Intent intent = new Intent(getActivity(),MeActivity.class);
+        intent.putExtra("id",work_id);
+        startActivity(intent);
     }
 
 
