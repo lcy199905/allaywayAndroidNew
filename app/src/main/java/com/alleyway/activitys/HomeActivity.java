@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alleyway.R;
 import com.alleyway.pojo.Paging;
@@ -29,6 +31,7 @@ import com.alleyway.utils.SendHttpRequestUtils;
 import com.bumptech.glide.Glide;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.List;
 
@@ -42,6 +45,8 @@ public class HomeActivity extends Fragment implements AdapterView.OnItemClickLis
     private ListView work_list_item;
     private Paging paging;
     private List<Work> works;
+    RefreshLayout refreshLayout;
+    MyAdapter adapter;
 
     public HomeActivity(){
 
@@ -69,7 +74,7 @@ public class HomeActivity extends Fragment implements AdapterView.OnItemClickLis
 
 
         // 准备BaseAdapter对象
-        MyAdapter adapter=new MyAdapter();
+        adapter=new MyAdapter();
 
         // 设置Adapter显示列表
         work_list_item.setAdapter(adapter);
@@ -80,21 +85,68 @@ public class HomeActivity extends Fragment implements AdapterView.OnItemClickLis
 
 
 
-        RefreshLayout refreshLayout = (RefreshLayout)getActivity().findViewById(R.id.refreshLayout);
-        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+        refreshLayout = (RefreshLayout)getActivity().findViewById(R.id.refreshLayout);
+        // 下拉刷新
+        refreshLayout.setEnableAutoLoadMore(true);
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
-            public void onLoadMore(RefreshLayout refreshlayout) {
-                refreshlayout.finishLoadMore(2000/*,false*/);//传入false表示加载失败
-                try {
-                    String s = SendHttpRequestUtils.sendHttpRequest("work/getWorkList?work_type=1&page_num=" + page_num++, true);
-                    Paging paging1 = JsonUtils.jsonPaging(s,Work.class);
-                    paging.getList().addAll(paging1.getList());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                Message message = new Message();
+                message.what = 1 ;
+                mHandler.sendMessageDelayed(message,2000);
             }
         });
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+//                List<String>  data = initDatas();
+                Message message = new Message();
+                message.what = 2;
+//                message.obj = data ;
+                mHandler.sendMessageDelayed(message,2000);
+            }
+        });
+
     }
+    private Handler mHandler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message msg) {
+            switch (msg.what){
+                case 1:         //刷新加载
+                    /*try {
+                        String s = SendHttpRequestUtils.sendHttpRequest("work/getWorkList?work_type=1&page_num=1", true);
+                        page_num = 1;
+                        paging = JsonUtils.jsonPaging(s,Work.class);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    work_list_item.invalidate();
+                    refreshLayout.finishRefresh(true);*/
+                    break;
+                case 2:         //加载更多
+                    /*if (true) {
+                        Toast.makeText(getActivity(),"已经没有更多啦", Toast.LENGTH_SHORT);
+                        break;
+                    }
+                    if (page_num == paging.getPageSize()) {
+                        Toast.makeText(getActivity(),"已经没有更多啦", Toast.LENGTH_SHORT);
+                        break;
+                    }
+                    String s = null;
+                    try {
+                        s = SendHttpRequestUtils.sendHttpRequest("work/getWorkList?work_type=1&page_num=" + page_num++, true);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    Paging paging1 = JsonUtils.jsonPaging(s,Work.class);
+                    paging.getList().addAll(paging1.getList());
+                    work_list_item.invalidate();
+                    refreshLayout.finishLoadMore(true);*/
+                    break;
+            }
+            return false;
+        }
+    });
 
 
     @Override
