@@ -7,7 +7,10 @@ import androidx.fragment.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,13 +27,18 @@ import com.alleyway.pojo.Work;
 import com.alleyway.utils.JsonUtils;
 import com.alleyway.utils.SendHttpRequestUtils;
 import com.bumptech.glide.Glide;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 
 import java.util.List;
+
+import jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class HomeActivity extends Fragment implements AdapterView.OnItemClickListener {
 
+    private int page_num = 0;
     private ListView work_list_item;
     private Paging paging;
     private List<Work> works;
@@ -46,14 +54,14 @@ public class HomeActivity extends Fragment implements AdapterView.OnItemClickLis
         return inflater.inflate(R.layout.activity_home, container ,false);
 
     }
-
-
+    // 水滴
+    WaveSwipeRefreshLayout mWaveSwipeRefreshLayout;
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         work_list_item=getActivity().findViewById(R.id.work_list_item);
         try {
-            String s = SendHttpRequestUtils.sendHttpRequest("work/getWorkList?work_type=1", true);
+            String s = SendHttpRequestUtils.sendHttpRequest("work/getWorkList?work_type=1&page_num=" + page_num++, true);
             paging = JsonUtils.jsonPaging(s,Work.class);
         } catch (Exception e) {
             e.printStackTrace();
@@ -68,7 +76,26 @@ public class HomeActivity extends Fragment implements AdapterView.OnItemClickLis
 
         // 给列表设置点击监听
         work_list_item.setOnItemClickListener(this);
+
+
+
+
+        RefreshLayout refreshLayout = (RefreshLayout)getActivity().findViewById(R.id.refreshLayout);
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(RefreshLayout refreshlayout) {
+                refreshlayout.finishLoadMore(2000/*,false*/);//传入false表示加载失败
+                try {
+                    String s = SendHttpRequestUtils.sendHttpRequest("work/getWorkList?work_type=1&page_num=" + page_num++, true);
+                    Paging paging1 = JsonUtils.jsonPaging(s,Work.class);
+                    paging.getList().addAll(paging1.getList());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
+
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -142,6 +169,7 @@ public class HomeActivity extends Fragment implements AdapterView.OnItemClickLis
 
 
     }
+
 
 
 
