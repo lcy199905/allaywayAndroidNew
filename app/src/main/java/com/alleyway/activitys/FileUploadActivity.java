@@ -1,6 +1,7 @@
 package com.alleyway.activitys;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -63,6 +64,8 @@ public class FileUploadActivity extends Fragment {
     private List<String> imgList;
     private OkHttpClient okHttpClient = new OkHttpClient();
     private String url;
+    private SharedPreferences userSettings;
+    private Integer numImg = 0;
 
     public FileUploadActivity() {
 
@@ -78,6 +81,12 @@ public class FileUploadActivity extends Fragment {
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        userSettings = getActivity().getSharedPreferences("UserInfo", 0);
+    }
+
+    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         gridView1 = getView().findViewById(R.id.gridView1);
@@ -85,20 +94,29 @@ public class FileUploadActivity extends Fragment {
         btnCommit = getView().findViewById(R.id.button1);
         btnBack = getView().findViewById(R.id.button2);
         // 获取到全局数据中的用户Id
-        SharedPreferences userSettings = getActivity().getSharedPreferences("UserInfo", 0);
         String userId = userSettings.getString("userId", "null");
-        String editText = editText1.getText().toString();
-        url = "work/addWork?workType=1&workLables=1&userId" + userId + "&workText=" + editText + "&";
+
 
         btnCommit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                String editText = editText1.getText().toString();
+                editText += "\'";
+                editText = "\'" + editText;
+                url = "work/addWorkPhone?workType=1&workLables=1&userId=" + 1 + "&workText=" + editText + "&";
 
                 if (userId == null) {
                     Toast.makeText(getActivity(), "你还未登陆，请先登录", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
 
+                    // 判断输入框是否为空
+                    if(editText == null){
+                        Toast.makeText(getActivity(), "你还未写入标题", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    // 判断作品是否为空
                     if (imgList == null) {
                         Toast.makeText(getActivity(), "你还未选择发布的作品", Toast.LENGTH_SHORT).show();
                         return;
@@ -109,15 +127,24 @@ public class FileUploadActivity extends Fragment {
                         /*sb.append();*/
                         for (String imgPath : imgList) {
                             Bitmap bitmap = BitmapUtil.getSmallBitmap(imgPath, 90, 90);
-                            String base64Path = BitmapUtil.bitmapToString(bitmap);
-                            sb.append("imgFile" + base64Path + "&");
+                            String base64Path = BitmapUtil.bitmapToBase64(bitmap);
+                            sb.append("imgFile=" + "\'" + base64Path + "\'" + "&");
                         }
                         String sbNew = sb.toString().substring(0, sb.length() - 1);
                         String sendURL = url + sbNew;
-                        Log.e(TAG, "onClick: SendURL " + sendURL);
+
+//                        Log.e(TAG, "onClick: SendURL " + sendURL);
                         try {
                             String resultJSON = SendHttpRequestUtils.sendHttpRequest(sendURL, false);
-                            Log.e(TAG, "onClick: resultJSON" + resultJSON);
+                            Log.e(TAG, "onClick: resultJSON ---aaa--aa-aaa" + resultJSON);
+
+                            editText1.setText("");
+                            if(numImg != 0){
+                                for (int i = 1; i <= numImg; i++) {
+                                    quickDialog(1);
+                                }
+                            }
+
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -167,8 +194,10 @@ public class FileUploadActivity extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 if (imageItem.size() == 10) { //第一张为默认图片
+                    numImg = 9;
                     Toast.makeText(getActivity(), "图片数9张已满", Toast.LENGTH_SHORT).show();
                 } else if (position == 0) { //点击图片位置为+ 0对应0张图片
+                    numImg++;
                     Toast.makeText(getActivity(), "添加图片", Toast.LENGTH_SHORT).show();
                     //选择图片
                     Intent intent = new Intent(Intent.ACTION_PICK,
@@ -258,6 +287,7 @@ public class FileUploadActivity extends Fragment {
      */
 
     protected void dialog(final int position) {
+        System.out.println(position);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage("确认移除已添加图片吗？");
         builder.setTitle("提示");
@@ -276,6 +306,14 @@ public class FileUploadActivity extends Fragment {
             }
         });
         builder.create().show();
+    }
+
+
+    protected void quickDialog(final int position) {
+        System.out.println(position);
+        imageItem.remove(position);
+        simpleAdapter.notifyDataSetChanged();
+
     }
 }         /**
  * 防止键盘挡住输入框

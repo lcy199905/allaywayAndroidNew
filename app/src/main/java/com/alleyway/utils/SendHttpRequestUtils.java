@@ -11,12 +11,14 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.FutureTask;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.*;
 
 public class SendHttpRequestUtils {
 
     private static final String URL = "http://www.cyhfwq.top/designForum2/";
+//    private static final String URL = "http://192.168.1.143/design/";
 
     /**
      * 发送Http请求
@@ -47,6 +49,8 @@ public class SendHttpRequestUtils {
      * @throws Exception
      */
     public static String sendHttpRequest(String url, boolean isGet) throws Exception {
+
+        System.out.println(url);
         // 创建Gson实例
         Gson gson = new Gson();
         // 用于接受SendHttpRequestCallable返回来的数据
@@ -63,7 +67,10 @@ public class SendHttpRequestUtils {
 
             if (requestBody == null) return "";
 
-            request = new Request.Builder().url(URL + url).post(requestBody).build();
+            url = new String(URL + url).split("\\?")[0];
+            System.out.println(url);
+
+            request = new Request.Builder().url(url).post(requestBody).build();
         }
         // 创建一个新的线程来执行http请求
         SendHttpRequestCallable shrc =  new SendHttpRequestCallable(request);
@@ -72,6 +79,8 @@ public class SendHttpRequestUtils {
         new Thread(futureTask).start();
 
         String jsonData = futureTask.get();
+
+        System.out.println("jsonData = " + jsonData);
         return jsonData;
     }
 
@@ -87,8 +96,12 @@ public class SendHttpRequestUtils {
         }
         String paramStr = split[1];
 
-        paramStr.replaceAll("=", ":");
-        paramStr.replaceAll("\\&", ";");
+        paramStr = paramStr.replaceAll("\\=", ":");
+        paramStr = paramStr.replaceAll("\\&", ";");
+        paramStr = paramStr.replaceAll(" ","");
+        paramStr = paramStr.replaceAll("\n","");
+        paramStr = paramStr.replaceAll("\r","");
+        System.out.println("进来了~~~~~~~~~~~~~~~~~~~~~");
 
         System.out.println("{" + paramStr + "}");
 
@@ -111,7 +124,9 @@ class SendHttpRequestCallable implements Callable<String> {
 
     @Override
     public String call() throws Exception {
-        OkHttpClient client = new OkHttpClient();
+        OkHttpClient client = new OkHttpClient.Builder().connectTimeout(10, TimeUnit.SECONDS)
+                .readTimeout(20, TimeUnit.SECONDS)
+                .build();
         Response response = null;
         try {
             response = client.newCall(request).execute();

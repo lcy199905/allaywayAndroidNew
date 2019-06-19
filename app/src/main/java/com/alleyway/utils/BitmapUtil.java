@@ -239,5 +239,48 @@ public class BitmapUtil {
         return intent;
     }
 
+    public static String bitmapToBase64NONseal(Bitmap bitmap) {
+        //转换结束以后的Base64编码
+        String result = null;
+        //读取bitmap以后通过字节数组来盛装
+        ByteArrayOutputStream baos = null;
+        try {
+            if (bitmap != null) {
+                baos = new ByteArrayOutputStream();
+                //通过Bitmap的方法把Bitmap数据放到字节数组当中，用于之后的转换使用
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+
+                baos.flush();
+                baos.close();
+                //把字节数组转换
+                byte[] bitmapBytes = baos.toByteArray();
+                //进行编码转换
+                result = Base64.encodeToString(bitmapBytes, Base64.DEFAULT);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (baos != null) {
+                    baos.flush();
+                    baos.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+
+    public static String bitmapToBase64(Bitmap bitmap) {
+        ByteArrayOutputStream bos=new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);//参数100表示不压缩
+        byte[] bytes=bos.toByteArray();
+        //Base64算法加密，当字符串过长（一般超过76）时会自动在中间加一个换行符，字符串最后也会加一个换行符。
+        // 导致和其他模块对接时结果不一致。所以不能用默认Base64.DEFAULT，而是Base64.NO_WRAP不换行
+        return new String(Base64.encode(bytes, Base64.NO_WRAP));
+    }
+
+
 
 }
