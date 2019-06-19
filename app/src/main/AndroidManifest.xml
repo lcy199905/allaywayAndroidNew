@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.alleyway">
-
-
-    <!-- 申明网络权限  -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <!-- 申明权限 操作SD卡 -->
+    <!-- 申明网络权限 -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 申明权限 操作SD卡 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
 
     <application
         android:allowBackup="true"
@@ -16,6 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activitys.MyLikesActivity"></activity>
+        <activity android:name=".activitys.MyCollectActivity" />
+        <activity android:name=".activitys.MyWorksActivity" />
         <activity android:name=".activitys.RegisterActivity" />
         <activity android:name=".activitys.WelcomeActivity">
             <intent-filter>
@@ -24,14 +23,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activitys.LoginActivity"></activity>
+        <activity android:name=".activitys.LoginActivity" />
         <activity android:name=".activitys.FileUploadActivity" />
         <activity android:name=".activitys.MeActivity" />
         <activity android:name=".activitys.HomeActivity" />
-        <activity android:name=".activitys.DetailsActivity"/>
+        <activity android:name=".activitys.DetailsActivity" />
         <activity
             android:name=".activitys.MainActivity"
-            android:label="@string/app_name"></activity>
+            android:label="@string/app_name" />
     </application>
 
 </manifest>
