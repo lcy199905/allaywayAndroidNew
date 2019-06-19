@@ -52,14 +52,15 @@ public class DetailsActivity extends BaseActivity {
         // 获取数据
         Work work = getInitData(id);
 
-        System.out.println(work.toString());
-
+        if (work == null){
+            return;
+        }
         // 标题
         workTitleText = (TextView) findViewById(R.id.details_work_title);
-        workTitleText.setText(work.getWorkText());
+        workTitleText.setText(setWorkTitle(work.getWorkText()));
         // 作品创建时间
         timeDateText = (TextView) findViewById(R.id.details_work_time_data);
-        timeDateText.setText(work.getWorkTime());
+        timeDateText.setText(work.getWorkTime().substring(0, work.getWorkTime().length() - 2));
         // 用户昵称
         userNameText = (TextView) findViewById(R.id.details_user_name);
         userNameText.setText(work.getUserName());
@@ -76,6 +77,13 @@ public class DetailsActivity extends BaseActivity {
 
     }
 
+
+    private String setWorkTitle(String title){
+        if (title.length() > 8){
+            return title.substring(0, 9) + "...";
+        }
+        return title;
+    }
 
     private Work getInitData(String id) throws Exception {
         // 获取json数据
