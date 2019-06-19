@@ -2,8 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.alleyway">
 
-    <!--网络访问权限-->
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <!-- 申明网络权限  -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 申明权限 操作SD卡 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -24,6 +27,7 @@
         <activity android:name=".activitys.FileUploadActivity" />
         <activity android:name=".activitys.MeActivity" />
         <activity android:name=".activitys.HomeActivity" />
+        <activity android:name=".activitys.DetailsActivity"/>
         <activity
             android:name=".activitys.MainActivity"
             android:label="@string/app_name"></activity>

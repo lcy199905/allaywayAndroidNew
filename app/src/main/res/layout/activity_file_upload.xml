@@ -4,14 +4,101 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".activitys.FileUploadActivity">
 
-    <TextView
-        android:id="@+id/txt_file_load"
+    <LinearLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/title_file_upload"
-        android:textSize="72sp"
-        android:gravity="center"/>
+        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        tools:ignore="MergeRootFrame">
+        <!-- 顶部添加文字 -->
+        <RelativeLayout
+            android:id="@+id/Layout_top"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="发布信息"
+                android:textSize="25sp" />
+        </RelativeLayout>
+        <!-- 显示图片 -->
+        <RelativeLayout
+            android:id="@+id/Content_Layout"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@id/Layout_top"
+            android:gravity="center">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentBottom="true"
+                android:orientation="vertical">
+                <!-- 设置运行多行 设置圆角图形 黑色字体-->
+                <EditText
+                    android:id="@+id/editText1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="120dp"
+                    android:layout_margin="12dp"
+                    android:background="@drawable/editview_shape"
+                    android:hint="随手说出你此刻的心声..."
+                    android:maxLength="500"
+                    android:singleLine="false"
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
+                <!-- 网格显示图片 行列间距5dp 每列宽度90dp -->
+                <GridView
+                    android:id="@+id/gridView1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="200dp"
+                    android:layout_margin="10dp"
+                    android:background="#EFDFDF"
+                    android:columnWidth="90dp"
+                    android:gravity="center"
+                    android:horizontalSpacing="5dp"
+                    android:numColumns="4"
+                    android:stretchMode="columnWidth"
+                    android:verticalSpacing="5dp"></GridView>
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="(友情提示:只能添加9张图片,长按图片可以删除已添加图片)" />
+                <!-- 底部按钮 -->
+                <RelativeLayout
+                    android:id="@+id/Layout_bottom"
+                    android:layout_width="fill_parent"
+                    android:layout_height="50dp"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="center">
+
+                    <Button
+                        android:id="@+id/button1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:text="发布作品"
+                        android:textSize="20sp" />
+
+                    <Button
+                        android:id="@+id/button2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:layout_toRightOf="@+id/button1"
+                        android:text="取消发布"
+                        android:textSize="20sp" />
+                </RelativeLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
 
 </FrameLayout>
