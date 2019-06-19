@@ -21,8 +21,23 @@ android {
         }
     }
 }
+/*引入水滴下拉刷新*/
+repositories {
+    maven {
+        url "https://jitpack.io"
+    }
+}
 
 dependencies {
+//    水滴下拉刷新
+    compile 'com.github.recruit-lifestyle:WaveSwipeRefreshLayout:1.6'
+    // 加载更多
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-23'
+    compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-23'//没有使用特殊Header，可以不加这行
+    implementation 'com.android.support:recyclerview-v7:28.0.0'//recycleview依赖
+
+
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.0.0'
     implementation 'com.google.android.material:material:1.0.0'
