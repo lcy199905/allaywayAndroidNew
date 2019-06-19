@@ -27,18 +27,18 @@ public class Work {
 
     private int id;
     private int userId;
-    private String workType;
+    private String workType = "";
     private int workLabels;
-    private String workLabelText;
-    private String workText;
-    private String path;
-    private String workTime;
+    private String workLabelText = "";
+    private String workText = "";
+    private String path = "";
+    private String workTime = "";
     private int workLikeSize;
     private int workDiscussSize;
     private int workCollect;
     private int show;
-    private String userName;
-    private String userHead;
+    private String userName = "";
+    private String userHead = "";
     private List<String> workImageList;
 
 

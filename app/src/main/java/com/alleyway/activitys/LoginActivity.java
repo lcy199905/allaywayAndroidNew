@@ -16,6 +16,7 @@ import com.alleyway.views.InputView;
 import com.google.gson.Gson;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -64,6 +65,7 @@ public class LoginActivity extends BaseActivity {
             map.put("user_password", password);
             //2、发送请求，获取到Json数据
             resultJSON = SendHttpRequestUtils.sendHttpRequest("VerifyController/login", map, true);
+            Log.e(TAG, "onViewClicked: " + resultJSON );
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -84,6 +86,24 @@ public class LoginActivity extends BaseActivity {
             editor.putString("userHead", userBO.getContent().getUser_head());
             // 用户昵称
             editor.putString("userName", userBO.getContent().getUser_name());
+            // 作品点赞
+            String proLike = String.valueOf(userBO.getContent().getProduction_like());
+            String proLikeNew = proLike.substring(1, proLike.length() - 1);
+            HashSet<String> likeSet = new HashSet<>();
+            String[] splitLike = proLikeNew.split(",");
+            for (String s : splitLike) {
+                likeSet.add(s);
+            }
+            editor.putStringSet("production_like", likeSet);
+            // 作品收藏
+            String proCollect = String.valueOf(userBO.getContent().getProduction_collect());
+            String proCollectNew = proLike.substring(1, proLike.length() - 1);
+            HashSet<String> collectSet = new HashSet<>();
+            String[] splitCollect = proLikeNew.split(",");
+            for (String s : splitCollect) {
+                collectSet.add(s);
+            }
+            editor.putStringSet("production_collect", collectSet);
             // 提交
             editor.commit();
             // 返回正确

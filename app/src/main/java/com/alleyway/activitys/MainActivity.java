@@ -1,10 +1,13 @@
 package com.alleyway.activitys;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.alleyway.BaseActivity;
 import com.alleyway.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
 import androidx.core.app.ComponentActivity;
@@ -145,5 +148,10 @@ public class MainActivity extends BaseActivity {
                 return true;
         }
         return false;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

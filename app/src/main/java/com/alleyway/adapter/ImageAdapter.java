@@ -18,7 +18,7 @@ import java.util.List;
 public class ImageAdapter extends ArrayAdapter<String> {
 
     private int layoutId;
-    private String url = "http://www.cyhfwq.top/designForum/images/work/";
+    private String url = "http://www.cyhfwq.top/designForum2/images/work/";
 
     public ImageAdapter(Context context, int layoutId, List<String> list, String url){
         super(context, layoutId, list);
