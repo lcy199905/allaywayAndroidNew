@@ -80,7 +80,7 @@ public class MeActivity extends Fragment{
         me_item_01.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if ("".equals(userId)){
+                if ("".equals(settings.getString("userId", ""))){
                     Toast.makeText(getActivity(), "请登录", Toast.LENGTH_SHORT).show();
                 }else {
                     Intent intent = new Intent(getActivity(),MyWorksActivity.class);
@@ -96,7 +96,7 @@ public class MeActivity extends Fragment{
         me_item_02.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if ("".equals(userId)){
+                if ("".equals(settings.getString("userId", ""))){
                     Toast.makeText(getActivity(), "请登录", Toast.LENGTH_SHORT).show();
                 }else {
                     Intent intent = new Intent(getActivity(), MyCollectActivity.class);
@@ -112,7 +112,7 @@ public class MeActivity extends Fragment{
         me_item_03.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if ("".equals(userId)){
+                if ("".equals(settings.getString("userId", ""))){
                     Toast.makeText(getActivity(), "请登录", Toast.LENGTH_SHORT).show();
                 }else {
                     Intent intent = new Intent(getActivity(), MyLikesActivity.class);
@@ -139,7 +139,7 @@ public class MeActivity extends Fragment{
         me_item_05.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!"".equals(userId)){
+                if (!"".equals(settings.getString("userId", ""))){
                     /**
                      * 设置头像
                      */
@@ -150,6 +150,16 @@ public class MeActivity extends Fragment{
                      */
                     TextView me_user_Name = view.findViewById(R.id.me_user_Name);
                     me_user_Name.setText("请点击头像登录");
+
+                    /**
+                     * 清空账号信息
+                     */
+                    SharedPreferences.Editor editor = settings.edit();
+                    editor.putString("userId","");
+                    editor.commit();
+
+                    Toast.makeText(getActivity(), "已退出账号", Toast.LENGTH_SHORT).show();
+
                     /**
                      * 点击头像登录
                      */
@@ -161,15 +171,6 @@ public class MeActivity extends Fragment{
                             startActivity(intent);
                         }
                     });
-
-                    /**
-                     * 清空账号信息
-                     */
-                    SharedPreferences.Editor editor = settings.edit();
-                    editor.clear();
-                    editor.commit();
-
-                    Toast.makeText(getActivity(), "已退出账号", Toast.LENGTH_SHORT).show();
                 }
             }
         });
